@@ -45,7 +45,7 @@ _Click on the image to watch the video on YouTube._
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/BudgetTracker.git
+   git clone https://github.com/KMKyaw/BudgetTracker.git
    cd BudgetTracker
    ```
 
