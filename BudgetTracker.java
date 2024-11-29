@@ -110,31 +110,31 @@ public class BudgetTracker {
         }
     }
 
-    // Persistence Methods
     private void saveExpenses() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(EXPENSE_FILE))) {
             for (Expense expense : expenses) {
-                writer.write(expense.getDate() + "," + expense.getCategory() + "," + expense.getDescription() + "," + expense.getAmount());
+                writer.write(expense.getDate() + "," + expense.getCategory() + "," + expense.getDescription() + "," + expense.getAmount() + "," + expense.getTime());
                 writer.newLine();
             }
         } catch (IOException e) {
             System.err.println("Error saving expenses: " + e.getMessage());
         }
     }
+    
+    
 
     private void loadExpenses() {
         try (BufferedReader reader = new BufferedReader(new FileReader(EXPENSE_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 5) { // 5 parts: date, category, description, amount, and time
+                if (parts.length >= 4) { // At least 4 parts: date, category, description, amount
                     String date = parts[0];
                     String category = parts[1];
                     String description = parts[2];
                     int amount = Integer.parseInt(parts[3]);
-                    String time = parts[4];  // Time part added
-
-                    // Create a new Expense object using the updated constructor
+                    String time = (parts.length == 5) ? parts[4] : "00:00"; // Default to "00:00" if time is missing
+    
                     expenses.add(new Expense(date, category, description, amount, time));
                 }
             }
@@ -142,6 +142,7 @@ public class BudgetTracker {
             System.err.println("Error loading expenses: " + e.getMessage());
         }
     }
+    
 
     private void saveDailyBudget() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(BUDGET_FILE))) {
