@@ -58,7 +58,7 @@ _Click on the image to watch the video on YouTube._
 
 3. **Run the Application**:
    ```bash
-   java src/Main
+   java Main
    ```
 
 ---
